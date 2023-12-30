@@ -9,7 +9,10 @@ from Cython.Build import cythonize
 if sys.version_info < (3, 12):
     from distutils.core import setup
     from distutils.extension import Extension
-    from numpy.distutils.system_info import default_include_dirs, default_lib_dirs
+    # For some reason pyodide refuses to install numpy when listed as a build dependency
+    # from numpy.distutils.system_info import default_include_dirs, default_lib_dirs
+    default_include_dirs = []
+    default_lib_dirs = []
     from distutils.sysconfig import get_config_vars
 else:
     from setuptools import setup
