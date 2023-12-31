@@ -11,8 +11,9 @@ if sys.version_info < (3, 12):
     from distutils.extension import Extension
     # For some reason pyodide refuses to install numpy when listed as a build dependency
     # from numpy.distutils.system_info import default_include_dirs, default_lib_dirs
-    default_include_dirs = []
-    default_lib_dirs = []
+    default_include_dirs = [os.path.join(os.path.dirname(__file__), '.local', 'include')]
+    default_lib_dirs = [os.path.join(os.path.dirname(__file__), '.local', 'bin'),
+                        os.path.join(os.path.dirname(__file__), '.local', 'lib')]
     from distutils.sysconfig import get_config_vars
 else:
     from setuptools import setup
@@ -23,7 +24,6 @@ else:
 
 
 libraries = ["flint"]
-
 
 if sys.platform == 'win32':
     #
@@ -48,7 +48,7 @@ if sys.platform == 'win32':
         # For the MSVC toolchain link with mpir instead of gmp
         libraries += ["mpir", "mpfr", "pthreads"]
 else:
-    libraries = ["flint"]
+    libraries = ["flint", "mpfr", "gmp"]
     (opt,) = get_config_vars('OPT')
     os.environ['OPT'] = " ".join(flag for flag in opt.split() if flag != '-Wstrict-prototypes')
 
@@ -123,6 +123,7 @@ ext_options = {
     "library_dirs" : default_lib_dirs,
     "include_dirs" : default_include_dirs,
     "define_macros" : define_macros,
+    "extra_compile_args" : ["-fPIC", "--target=wasm32-unknown-emscripten"],
 }
 
 ext_modules = []
@@ -135,7 +136,8 @@ for e in ext_modules:
 
 
 setup(
-    name='python-flint',
+    name='python-flint-wasm',
+    python_requires='~=3.11',
     cmdclass={'build_ext': build_ext},
     ext_modules=cythonize(ext_modules, compiler_directives=compiler_directives),
     packages=packages,
