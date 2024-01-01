@@ -48,7 +48,7 @@ cd gmp-$GMPVER
 chmod +x configfsf.guess
 ./configfsf.guess
 
-sed -i '' 's/abilist="standard"/abilist="standard longlong"\nlimb_longlong=longlong/' ./configure
+sed -i 's/abilist="standard"/abilist="standard longlong"\nlimb_longlong=longlong/' ./configure
 CC_FOR_BUILD=gcc emconfigure ./configure\
     --prefix=$PREFIX\
     --build=i686-pc-linux-gnu\
