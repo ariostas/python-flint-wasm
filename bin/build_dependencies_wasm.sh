@@ -63,7 +63,7 @@ CC_FOR_BUILD=gcc emconfigure ./configure\
     --disable-pthread\
     CFLAGS="-O3 -Wall -fPIC"\
     ABI=longlong
-emmake make -j4
+emmake make -j2
 emmake make install
 cd ..
 
@@ -91,7 +91,7 @@ CC_FOR_BUILD=gcc ABI=long emconfigure ./configure\
     --build=i686-pc-linux-gnu\
     --host=none\
     CFLAGS="-O3 -Wall -fPIC"
-emmake make -j4
+emmake make -j2
 emmake make install
 cd ..
 
@@ -120,7 +120,7 @@ CC_FOR_BUILD=gcc emconfigure ./configure\
     --disable-static\
     CFLAGS="-O3 -fPIC"\
     CPPFLAGS="-O3 -fPIC"
-emmake make -j8
+emmake make -j2
 emmake make install
 cd ..
 
