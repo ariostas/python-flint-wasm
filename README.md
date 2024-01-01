@@ -1,3 +1,27 @@
+Python-FLINT-Wasm
+=================
+
+This fork adds additional configuration and scripts to package `python-flint` for `pyodide`. Some built wheels can be found in the releases section.
+
+Build from source
+-----------------
+
+To build the package, `pyodide-build` and the Emscripten developer toolkit need to be installed and activated (more details can be found [here](https://pyodide.org/en/stable/development/building-and-testing-packages.html)). Then the following commands will build the necessary dependencies and build the wheel into the `dist` directory.
+
+```bash
+./bin/build_dependencies_wasm.sh
+pyodide build --exports whole_archive
+```
+
+Licenses
+--------
+
+`python-flint` and all modifications are distributed under the MIT license. The built wheels also contain the [FLINT](https://flintlib.org/), [GMP](https://gmplib.org/), and [MPFR](https://www.mpfr.org/) libraries, and are redistributed under their original licenses, which can be found at the links provided.
+
+The original readme file can be found below.
+
+------------
+
 Python-FLINT
 ============
 
